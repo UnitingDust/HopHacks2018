@@ -56,12 +56,21 @@ public class MainServlet extends HttpServlet {
 	  	
 	  	findHotspots();
 	  	String json = gson.toJson(hotspots);
-	  	System.out.println(json);
 	  	
 	  	
+	  	request.setAttribute("hotspots", json);
 	    request.getRequestDispatcher("/main.jsp").forward(request, response);
 	    
 	    
+  }
+  
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	  
+	  System.out.println(request.getParameter("value"));
+	  
+	  response.sendRedirect("/main");
+	  
+	  
   }
   
   public static void parseJSONFile() throws FileNotFoundException, IOException, ParseException {

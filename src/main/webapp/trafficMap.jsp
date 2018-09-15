@@ -1,3 +1,6 @@
+<script>
+
+console.log(${hotspots})
 var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -64,23 +67,38 @@ function displayPoints(points) {
 
 function displayFilters () {
 	for (var i = 0; i < uniqueNotes.length; i++) {
-		$('#notes_filter').append('<div class="note note_active" onclick="toggleFilter(event)">' + uniqueNotes[i] + '</div>');
+		$('#notes_select').append('<option value=' + uniqueNotes[i].split(" ").join("_") + '>' + uniqueNotes[i] + '</option>');
 	}
+}
+
+function filterPointsByNotes(item) {
+	alert($(item.target).val());
 }
 
 function toggleFilter (item) {
 	if ($(item.target).hasClass('note_active')) {
 		$(item.target).removeClass('note_active');
 		$(item.target).addClass('note_inactive');
+		$.post("/main", {
+			value: $(item.target).text(),
+		}, function() {
+			console.log($(item.target));
+		});
 	} else {
 		$(item.target).removeClass('note_inactive');
 		$(item.target).addClass('note_active');
+		
 	}
 }
 
 function filterPointsByDate (item) {
 	var value = $(item.target).val();
 	console.log(value);
+	$.post("/main", {
+		value: $(item.target).val(),
+	}, function() {
+		alert($(item.target).val());
+	});
 }
 
 // HARDCODED VARIABLES
@@ -115,3 +133,5 @@ var uniqueNotes = ['Red Light Violation', 'Right on Red',
                      'Unlawful Dumping/Waste Hauler w/o Permit',
                      'Snow Emergency Route Violation', 'Res. Park Permit 4th Offense',
                      'No Stopping/Parking Stadium Event \x96 33rd']   
+                     
+ </script>

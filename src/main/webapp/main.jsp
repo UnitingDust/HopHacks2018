@@ -1,4 +1,4 @@
-<% String test = "Testing the JS!!!"; %>
+<% String hotspots = (String) request.getAttribute("hotspots"); %>
 
 <!doctype html>
 <html>
@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
-    <script>console.log('<%=test%>')</script>
-    <script src="trafficMap.js"></script> 
+   <jsp:include page="trafficMap.jsp"/>
+    
   </head>
   
   <body>
@@ -16,6 +16,8 @@
     <div id="sidebar">
       <div id="filters">
         <div id="notes_filter">
+        	<select id="notes_select" onchange="filterPointsByNotes(event)">
+        	</select>
         </div>
         <div id="date_filter">
           <select onchange="filterPointsByDate(event)">
@@ -36,5 +38,8 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6FmCtk90VMm4FhOXopMObmK9ZeTSfzHI&callback=initMap">
     </script>
+    
+	
+	
   </body>
 </html>

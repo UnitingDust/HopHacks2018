@@ -31,11 +31,19 @@ function initMap() {
 		for (var i = 0; i < jsn.results.length; i++) {
 			// console.log(jsn.results[i].geometry.coordinates);
 			var coords = jsn.results[i].geometry.coordinates;
-			  var latLng = new google.maps.LatLng(coords[1],coords[0]);
-			  var marker = new google.maps.Marker({
-			    position: latLng,
-			    map: map
-			  });
+			var latLng = new google.maps.LatLng(coords[1],coords[0]);
+			var marker = new google.maps.Marker({
+				position: latLng,
+				map: map,
+				obj: jsn.results[i]
+			});
+
+			$('#points').append('<span>' + 
+				'<p>' + marker.position + '</p>' +
+				'<p>' + marker.obj.data.address + '</p>' +
+				'<p>' + marker.obj.data.notes + '</p>' +
+				'<p>' + marker.obj.data.issuedAt + '</p>' +
+				'</span>');
 		}
 	});
 }

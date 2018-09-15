@@ -72,30 +72,18 @@ function displayFilters () {
 }
 
 function filterPointsByNotes(item) {
-	alert($(item.target).val());
-}
-
-function toggleFilter (item) {
-	if ($(item.target).hasClass('note_active')) {
-		$(item.target).removeClass('note_active');
-		$(item.target).addClass('note_inactive');
-		$.post("/main", {
-			value: $(item.target).text(),
-		}, function() {
-			console.log($(item.target));
-		});
-	} else {
-		$(item.target).removeClass('note_inactive');
-		$(item.target).addClass('note_active');
-		
-	}
+	$.post("/main", {
+		value_notes: $('#notes_select').val(),
+		value_date: $('#date_select').val()
+	}, function() {
+		alert($(item.target).val());
+	});
 }
 
 function filterPointsByDate (item) {
-	var value = $(item.target).val();
-	console.log(value);
 	$.post("/main", {
-		value: $(item.target).val(),
+		value_notes: $('#notes_select').val(),
+		value_date: $('#date_select').val()
 	}, function() {
 		alert($(item.target).val());
 	});
@@ -103,7 +91,7 @@ function filterPointsByDate (item) {
 
 // HARDCODED VARIABLES
 
-var uniqueNotes = ['Red Light Violation', 'Right on Red',
+var uniqueNotes = ['All Violations', 'Red Light Violation', 'Right on Red',
                      'All Other Parking Meter Violations', 'Expired Tags',
                      'Mobile Speed Camera', 'Fixed Speed Camera',
                      'Residential Parking Permit Only',

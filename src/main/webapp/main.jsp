@@ -73,7 +73,7 @@
         	</select>
         </div>
         <div id="date_filter">
-          <select onchange="filterPointsByDate(event)">
+          <select id="date_select" onchange="filterPointsByDate(event)">
             <option value="all">All Data</option>
             <option value="oneweek">Past Week</option>
             <option value="twoweeks">Past 2 Weeks</option>

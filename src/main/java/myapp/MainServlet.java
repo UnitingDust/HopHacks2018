@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+
 import java.util.*;
 import data.*;
 
@@ -39,38 +40,55 @@ public class MainServlet extends HttpServlet {
 	private static ArrayList<Hotspot> hotspots;
 	
 	private static double radiusThreshold = 0.0144;
+	private static ArrayList<Hotspot> originalHotspots;
+	
+	@Override
+	public void init() throws ServletException {
+	    super.init();
+	    
+	    incidents = new ArrayList<Incident>();
+		hotspots = new ArrayList<Hotspot>();
+	    
+	    try {
+			setUpServlet();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 	  
 	  Gson gson = new Gson();
-	  incidents = new ArrayList<Incident>();
-	  hotspots = new ArrayList<Hotspot>();
-	  
-	  	try {
-			parseJSONFile();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	  	
-	  	findHotspots();
-	  	String json = gson.toJson(hotspots);
-	  	
-	  	
-	  	request.setAttribute("hotspots", json);
-	    request.getRequestDispatcher("/main.jsp").forward(request, response);
-	    
-	    
+	  String json = gson.toJson(hotspots);
+	  		
+	  request.setAttribute("hotspots", json);
+	  request.getRequestDispatcher("/main.jsp").forward(request, response);
   }
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	  
-	  System.out.println(request.getParameter("value"));
+	  
+	  //String filterKey = request.getParameter("value");
+	  
+	  System.out.println("Date: " + request.getParameter("value_date"));
+	  System.out.println("Notes: " + request.getParameter("value_notes"));
+	  
 	  
 	  response.sendRedirect("/main");
 	  
 	  
+  }
+  
+  // Initialize the hotspots and incidents
+  public static void setUpServlet() throws FileNotFoundException, IOException, ParseException {
+	  parseJSONFile();
+	  findHotspots();
   }
   
   public static void parseJSONFile() throws FileNotFoundException, IOException, ParseException {

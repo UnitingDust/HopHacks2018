@@ -27,6 +27,12 @@
   
   <body>
     <div id="map"></div>
+    <div id="sidebar">
+      <div id="header">
+      </div>
+      <div id="points">
+      </div>
+    </div>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6FmCtk90VMm4FhOXopMObmK9ZeTSfzHI&callback=initMap">
     </script>

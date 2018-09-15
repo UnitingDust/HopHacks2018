@@ -4,21 +4,7 @@
 <html>
   <head>
     <title>Traffic Flagger</title>
-    
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 50%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-    
+    <link rel="stylesheet" href="main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
     <script>console.log('<%=test%>')</script>
@@ -28,6 +14,20 @@
   <body>
     <div id="map"></div>
     <div id="sidebar">
+      <div id="filters">
+        <div id="notes_filter">
+        </div>
+        <div id="date_filter">
+          <select onchange="filterPointsByDate(event)">
+            <option value="all">All Data</option>
+            <option value="oneweek">Past Week</option>
+            <option value="twoweeks">Past 2 Weeks</option>
+            <option value="onemonth">Past Month</option>
+            <option value="threemonths">Past 3 Months</option>
+            <option value="sixmonths">Past 6 Months</option>
+          </select>
+        </div>
+      </div>
       <div id="header">
       </div>
       <div id="points">

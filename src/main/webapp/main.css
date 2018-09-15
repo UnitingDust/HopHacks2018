@@ -1,0 +1,39 @@
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#info {
+  position: fixed;
+  top: 0;
+  left: calc(50% - 50px);
+  width: 100px;
+}
+
+#notes_filter {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.note {
+	border: 1px solid grey;
+	margin: 1px 5px;
+	border-radius: 20px;
+	padding: 2px 10px;
+}
+
+.note_active {
+	color: green;
+}
+
+.note_inactive {
+	color: lightgrey;
+}

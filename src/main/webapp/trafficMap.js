@@ -1,3 +1,23 @@
+var map;
+function initMap() {
+	map = new google.maps.Map(document.getElementById('map'), {
+	  zoom: 12,
+	  center: new google.maps.LatLng(39.319,-76.607),
+	  mapTypeId: 'terrain'
+	});
+
+	loadJSON(function(jsn) { 
+
+		drawPoints(jsn);
+		displayPoints(jsn);
+
+	});
+}
+
+$(document).ready(function() {
+	displayFilters();
+});
+
 function loadJSON(callback) {
 	var xobj = new XMLHttpRequest();
  	xobj.overrideMimeType("application/json");
@@ -11,40 +31,87 @@ function loadJSON(callback) {
  	console.log(xobj);
  }
 
-
-var map;
-function initMap() {
-	map = new google.maps.Map(document.getElementById('map'), {
-	  zoom: 12,
-	  center: new google.maps.LatLng(39.319,-76.607),
-	  mapTypeId: 'terrain'
-	});
-
-	// Create a <script> tag and set the USGS URL as the source.
-	// var script = document.createElement('script');
-	// // This example uses a local copy of the GeoJSON stored at
-	// // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-	// script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-	// document.getElementsByTagName('head')[0].appendChild(script);
-	loadJSON(function(jsn) { 
-
-		for (var i = 0; i < jsn.results.length; i++) {
+function drawPoints(points) {
+	for (var i = 0; i < points.results.length; i++) {
 			// console.log(jsn.results[i].geometry.coordinates);
-			var coords = jsn.results[i].geometry.coordinates;
+			var coords = points.results[i].geometry.coordinates;
 			var latLng = new google.maps.LatLng(coords[1],coords[0]);
 			var marker = new google.maps.Marker({
 				position: latLng,
 				map: map,
-				obj: jsn.results[i]
+				obj: points.results[i]
 			});
-
-			$('#points').append('<span>' + 
-				'<p>' + marker.position + '</p>' +
-				'<p>' + marker.obj.data.address + '</p>' +
-				'<p>' + marker.obj.data.notes + '</p>' +
-				'<p>' + marker.obj.data.issuedAt + '</p>' +
-				'</span>');
 		}
-	});
 }
 
+// k. placeholder for draqAreas functions
+function drawAreas(areas) {
+}
+
+// k. change implementation to accept area object instead
+function displayPoints(points) {
+	for (var i = 0; i < points.results.length; i++) {
+		$('#points').append('<span>' + 
+			'<p>' + points.results[i].geometry.coordinates + '</p>' +
+			'<p>' + points.results[i].data.address + '</p>' +
+			'<p>' + points.results[i].data.notes + '</p>' +
+			'<p>' + points.results[i].data.issuedAt + '</p>' +
+			'</span>');
+	}
+}
+
+// HELPER FUNCTIONS
+
+function displayFilters () {
+	for (var i = 0; i < uniqueNotes.length; i++) {
+		$('#notes_filter').append('<div class="note note_active" onclick="toggleFilter(event)">' + uniqueNotes[i] + '</div>');
+	}
+}
+
+function toggleFilter (item) {
+	if ($(item.target).hasClass('note_active')) {
+		$(item.target).removeClass('note_active');
+		$(item.target).addClass('note_inactive');
+	} else {
+		$(item.target).removeClass('note_inactive');
+		$(item.target).addClass('note_active');
+	}
+}
+
+function filterPointsByDate (item) {
+	var value = $(item.target).val();
+	console.log(value);
+}
+
+// HARDCODED VARIABLES
+
+var uniqueNotes = ['Red Light Violation', 'Right on Red',
+                     'All Other Parking Meter Violations', 'Expired Tags',
+                     'Mobile Speed Camera', 'Fixed Speed Camera',
+                     'Residential Parking Permit Only',
+                     'No Stopping/Standing Not Tow-Away Zone',
+                     'No Stop/Park Street Cleaning',
+                     'Obstruct/Impeding Movement of Pedestrian',
+                     'All Other Stopping or Parking Violations',
+                     'Less Than 15 feet from Fire Hydrant',
+                     'No Stopping/Standing Tow Away Zone',
+                     'No Parking/Standing In Transit Stop', 'Passenger Loading Zone',
+                     'No Stopping//Parking Stadium Event Camden',
+                     'Obstruct/Impeding Flow of Traffic', 'No Stop/Park Handicap',
+                     'Exceeding 48 Hours', 'Commercial Veh/Residence under 20,000 lbs',
+                     'Abandonded Vehicle', 'Fire Lane/Handicapped Violation',
+                     'No Parking/Standing In Bus Stop/Bus Lane',
+                     'No Parking/Standing In Bike Lanes',
+                     'Commercial Veh/Residence over 20,000 lbs',
+                     'Old Fixed Speed Camera',
+                     'Obstructing/Imped Traffic Xwalk/inter/school',
+                     'Blocking Garage or Driveway',
+                     'Commercial Vehicle Obstruct/Imped Traffic Flow',
+                     'Less 30\x92 from Intersection', 'In Taxicab Stand',
+                     'No Stop/Stand/Park Cruising',
+                     'No Parking/Stand Motor Home/Campr/Travel Trailer',
+                     'No Stopping or No Parking Pimlico Event',
+                     'No Parking/Standing Vendor Truck',
+                     'Unlawful Dumping/Waste Hauler w/o Permit',
+                     'Snow Emergency Route Violation', 'Res. Park Permit 4th Offense',
+                     'No Stopping/Parking Stadium Event \x96 33rd']   

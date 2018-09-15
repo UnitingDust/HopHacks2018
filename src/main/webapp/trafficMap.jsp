@@ -9,12 +9,13 @@ function initMap() {
 	  mapTypeId: 'terrain'
 	});
 
-	loadJSON(function(jsn) { 
+	drawPoints(${hotspots});
+	drawAreas(${hotspots});
+	// displayPoints(${hotspots});
 
-		drawPoints(jsn);
-		displayPoints(jsn);
+	// loadJSON(function(jsn) { 
 
-	});
+	// });
 }
 
 $(document).ready(function() {
@@ -34,36 +35,70 @@ function loadJSON(callback) {
  	console.log(xobj);
  }
 
-function drawPoints(points) {
-	for (var i = 0; i < points.results.length; i++) {
+function drawPoints(hotspots) {
+	for (var i = 0; i < hotspots.length; i++) {
+		var hotspot = hotspots[i];
+		for (var j = 0; j < hotspots.incidents.length; j++) {
+			var incidents = hotspot.incidents[0];
 			// console.log(jsn.results[i].geometry.coordinates);
-			var coords = points.results[i].geometry.coordinates;
-			var latLng = new google.maps.LatLng(coords[1],coords[0]);
+			var coords = incidents.coordinate;
+			var latLng = new google.maps.LatLng(coords.x,coords.y);
 			var marker = new google.maps.Marker({
 				position: latLng,
 				map: map,
-				obj: points.results[i]
+				obj: hotspot.incidents[j]
+			});
+
+			marker.addListener('click', function() {
+				displayPoints([this.obj]);
 			});
 		}
+	}
 }
 
-// k. placeholder for draqAreas functions
-function drawAreas(areas) {
+function drawAreas(hotspots) {
+	for (var i = 0; i < hotspots.length; i++) {
+		var loc = hotspots[i].location
+		var latLng = new google.maps.LatLng(loc.x, loc.y);
+		var marker = new google.maps.Marker({
+			position: latLng,
+			map: map,
+			icon, getCircle(1),
+			incidents: hotspots[i].incidents,
+			numIncidents: hotspots[i].numofIncidents
+		});
+
+		marker.addListener('click', function() {
+			displayPoints(this.incidents);
+		});
+	}
 }
 
 // k. change implementation to accept area object instead
 function displayPoints(points) {
+	$('#points').html(); // k. clears the html in #points
 	for (var i = 0; i < points.results.length; i++) {
 		$('#points').append('<span>' + 
-			'<p>' + points.results[i].geometry.coordinates + '</p>' +
-			'<p>' + points.results[i].data.address + '</p>' +
-			'<p>' + points.results[i].data.notes + '</p>' +
-			'<p>' + points.results[i].data.issuedAt + '</p>' +
+			'<p>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
+			'<p>' + points[i].data.address + '</p>' +
+			'<p>' + points[i].data.notes + '</p>' +
+			'<p>' + points[i].data.issuedAt + '</p>' +
 			'</span>');
 	}
 }
 
 // HELPER FUNCTIONS
+
+function getCircle(magnitude) {
+	return {
+		path: google.maps.SymbolPath.CIRCLE,
+		fillColor: 'red',
+		fillOpacity: .2,
+		scale: Math.pow(2, magnitude) / 2,
+		strokeColor: 'white',
+		strokeWeight: .5
+	}
+}
 
 function displayFilters () {
 	for (var i = 0; i < uniqueNotes.length; i++) {

@@ -21,6 +21,7 @@ function initMap() {
 
 $(document).ready(function() {
 	displayFilters();
+	$('#points').html("<p class='no-points'>There are no points selected<p>");
 });
 
 function updateMap(hotspots) {
@@ -64,7 +65,8 @@ function drawPoints(hotspots) {
 			var marker = new google.maps.Marker({
 				position: latLng,
 				map: map,
-				obj: hotspot.incidents[j]
+				obj: hotspot.incidents[j],
+				animation: google.maps.Animation.DROP
 			});
 
 			marker.addListener('click', function() {
@@ -105,12 +107,20 @@ function drawAreas(hotspots) {
 
 // k. change implementation to accept area object instead
 function displayPoints(points, point_type) {
+	if (point_type === "Area" ) {
+		var participle = points.length > 1 ? 'cases' : 'case';
+		$('#header h2').text('Incidents (' + points.length + ' ' + participle + ')');
+	} else {
+		$('#header').html('<h2>Incident</h2>');
+	}
+
+
 	$('#points').html(""); // k. clears the html in #points
-	var point_type = "point_icon";
+	var point_class = "point_icon";
 	for (var i = 0; i < points.length; i++) {
 		console.log(points[i]);
-		$('#points').append('<span class="point_container"><span class=' + point_type + '></span>' + 
-			'<span><p class="p_info"><b>Coordinates</b>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
+		$('#points').append('<span class="point_container"><div class=' + point_class + '></div>' + 
+			'<span class="p_info_container"><p class="p_info"><b>Coordinates</b>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
 			'<p class="p_info"><b>Address</b>' + points[i].address + '</p>' +
 			'<p class="p_info"><b>Notes</b>' + points[i].notes + '</p>' +
 			'<p class="p_info"><b>Manufacturer</b>' + points[i].manufacturer + '</p>' +
@@ -140,7 +150,7 @@ function displayFilters () {
 }
 
 function filterPointsByNotes() {
-	$('#points').html(""); // k. clear the displayed points
+	$('#points').html("<p class='no-points'>There are no points selected<p>"); // k. clear the displayed points
 	$.ajax({
 		  type: 'POST',
 		  url: "/main",
@@ -155,7 +165,7 @@ function filterPointsByNotes() {
 }
 
 function filterPointsByDate () {
-	$('#points').html(""); // k. clear the displayed points
+	$('#points').html("<p class='no-points'>There are no points selected<p>");  // k. clear the displayed points
 	$.post("/main", {
 		value_notes: $('#notes_select').val(),
 		value_date: $('#date_select').val()

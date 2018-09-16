@@ -46,6 +46,9 @@
         height: 91%;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
         background-color: lightgray;
+        padding-top: 20px;
+        overflow: scroll;
+
       }
       #points {
         font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -134,6 +137,7 @@
       <div class="right-column">
         <div id="sidebar">
           <div id="header">
+            <h2>Incidents</h2>
           </div>
           <div id="points">
           </div>

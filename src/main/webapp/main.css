@@ -1,14 +1,15 @@
 .point_container {
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
-	padding: 20px 15px;
+	justify-content: center;
+	padding: 20px 0px;
 }
 
 .point_icon {
-	background: green;
-	width: 50px;
-	height: 50px;
+	background: url('marker2.png');
+	width: 75px;
+	height: 75px;
+	object-fit: contain;
 }
 
 .area_icon {
@@ -17,14 +18,27 @@
 	height: 50px;
 }
 
-.p_info {
+#points .p_info {
 	font-size: 0.8em;
 	margin: 0 5px;
 	margin-right: 0px;
-	width: 75%;
 	display: flex;
+}
+
+#points .p_info_container {
+	width: 70%;
+	margin-left: 5%;
 }
 
 .p_info b {
 	margin-right: 10px;
+}
+
+#header h2, #points p {
+	text-align: center;
+	margin: 10px 0;
+}
+
+#header h2 {
+	line-height: 1.1em;
 }

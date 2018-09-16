@@ -100,7 +100,7 @@ function drawAreas(hotspots) {
 // k. change implementation to accept area object instead
 function displayPoints(points, point_type) {
 	$('#points').html(""); // k. clears the html in #points
-	var point_type = point_type === "Point" ? "point_icon" : "area_icon";
+	var point_type = "point_icon";
 	for (var i = 0; i < points.length; i++) {
 		$('#points').append('<span class="point_container"><span class=' + point_type + '></span>' + 
 			'<span><p class="p_info"><b>Coordinates</b>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
@@ -136,7 +136,7 @@ function filterPointsByNotes(item) {
 		  url: "/main",
 		  data: {
 			  value_notes: $('#notes_select').val(),
-				value_date: $('#date_select').val()
+			  value_date: $('#date_select').val()
 		  },
 		  success: function( data ) {
 		  	updateMap(JSON.parse(data));

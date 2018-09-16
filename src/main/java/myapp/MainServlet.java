@@ -44,8 +44,6 @@ public class MainServlet extends HttpServlet {
 
 	private static double radiusThreshold = 0.0144;
 	private static ArrayList<Hotspot> originalHotspots;
-	
-	private UserStore userStore;
 
 	@Override
 	public void init() throws ServletException {
@@ -67,10 +65,6 @@ public class MainServlet extends HttpServlet {
 
 	    originalHotspots = new ArrayList<Hotspot>();
 	    originalHotspots.addAll(hotspots);
-	}
-	
-	void setUserStore(UserStore userStore) {
-		this.userStore = userStore;
 	}
 	
   @Override

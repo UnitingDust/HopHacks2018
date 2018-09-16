@@ -34,10 +34,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">TrafficFlag <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/main">TrafficFlag <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-about">
-          <a class="nav-link" href="#">About Us</a>
+          <a class="nav-link" href="/about">About Us</a>
         </li>
       </ul>
     </div>

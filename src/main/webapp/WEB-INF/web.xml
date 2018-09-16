@@ -26,13 +26,22 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     
-     <servlet>
+    <servlet>
         <servlet-name>register</servlet-name>
         <servlet-class>myapp.RegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>about</servlet-name>
+        <servlet-class>myapp.AboutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>about</servlet-name>
+        <url-pattern>/about</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>

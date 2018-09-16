@@ -1,6 +1,9 @@
 <script>
 
+${ shouldUpdate=="true" ? windows.onLoad = updateMap() };
+
 var map;
+var markers = [];
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 	  zoom: 12,
@@ -20,6 +23,19 @@ function initMap() {
 $(document).ready(function() {
 	displayFilters();
 });
+
+function updateMap() {
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+
+	markers = [];
+
+	loadJSON(function(jsn) { 
+		drawPoints(${hotspots});
+		displayPoints(${hotspots});
+	});	
+}
 
 function loadJSON(callback) {
 	var xobj = new XMLHttpRequest();
@@ -52,6 +68,8 @@ function drawPoints(hotspots) {
 			marker.addListener('click', function() {
 				displayPoints([this.obj]);
 			});
+
+			markers.append(marker);
 		}
 	}
 }
@@ -71,6 +89,8 @@ function drawAreas(hotspots) {
 		marker.addListener('click', function() {
 			displayPoints(this.incidents);
 		});
+
+		markers.append(marker);
 	}
 }
 

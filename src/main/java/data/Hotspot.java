@@ -32,4 +32,8 @@ public class Hotspot {
 	public void setIncidents(ArrayList<Incident> incidents) {
 		this.incidents = incidents;
 	}
+	
+	public void setLocation(Point location) {
+		this.location = location;
+	}
 }

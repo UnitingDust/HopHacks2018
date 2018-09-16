@@ -73,19 +73,14 @@ public class MainServlet extends HttpServlet {
 	  
 	  Gson gson = new Gson();
 	  String json = gson.toJson(hotspots);
-	  
-	  System.out.println(json);
-	 
+	  	 
 	  request.setAttribute("hotspots", json);
 	  request.getRequestDispatcher("/main.jsp").forward(request, response);
   }
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	  
-	  	  
-	  System.out.println("Date: " + request.getParameter("value_date"));
-	  System.out.println("Notes: " + request.getParameter("value_notes"));
-	  
+	  	 
 	  hotspots = new ArrayList<Hotspot>();
 	  hotspots.addAll(originalHotspots);
 	  
@@ -107,7 +102,7 @@ public class MainServlet extends HttpServlet {
   
   public static void parseJSONFile() throws FileNotFoundException, IOException, ParseException {
 	  JSONParser parser = new JSONParser(); 
-	  Object json = parser.parse(new FileReader("/home/kevan/Workspace/HopHacks2018/src/main/java/myapp/parking-citation.json"));
+	  Object json = parser.parse(new FileReader("parking-citation.json"));
 	  
 	  JSONObject result = (JSONObject)json;
 	  JSONArray array = (JSONArray) result.get("results");
@@ -121,13 +116,15 @@ public class MainServlet extends HttpServlet {
 		String notes = (String)data.get("notes");
 		String address = (String)data.get("address");
 		String date = (String)data.get("issuedAt");
+		String manufacturer = (String)data.get("manufacturer");
+		String plate = (String)data.get("plate");
 		
 		JSONObject location = (JSONObject)data.get("location");
 		JSONArray coordinates = (JSONArray)location.get("coordinates");
 		double x = (double)coordinates.get(0);
 		double y = (double)coordinates.get(1);
 		
-		Incident report = new Incident(ID, address, date, notes, new Point(x, y));
+		Incident report = new Incident(ID, address, date, notes, new Point(x, y), manufacturer, plate);
 		incidents.add(report);
 	}
   }
@@ -284,6 +281,8 @@ public class MainServlet extends HttpServlet {
 			  if (newIncidents.size() >= 2) {
 				  hotspot.setIncidents(newIncidents);
 				  hotspot.setNumOfIncidents();
+				  hotspot.setLocation(hotspot.getIncidents().get(0).getCoordinate());
+				  
 				  newHotspots.add(hotspot);
 			  }
 		  }

@@ -139,7 +139,6 @@ function filterPointsByNotes(item) {
 				value_date: $('#date_select').val()
 		  },
 		  success: function( data ) {
-			console.log(data);
 		  	updateMap(JSON.parse(data));
 		  }
 		 });

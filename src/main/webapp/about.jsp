@@ -10,7 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bootstrap.min.css"/>
     <style>
-      /* Optional: Makes the sample page fill the window. */
+    #textBox {
+        margin: auto;
+        margin-top: 10%;
+        height: 50%;
+        width: 50%;
+        text-align: center;
+        color: white;
+      }
       html, body {
         background-color: #656363;
         height: 100%;
@@ -35,7 +42,7 @@
           <a class="nav-link" href="/main">TrafficFlag <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-about">
-          <a class="nav-link" href="/about">About Us</a>
+          <a class="nav-link" href="/about">About</a>
         </li>
         <% if(request.getSession().getAttribute("user") == null){ %>
         <li class="nav-about">
@@ -45,6 +52,17 @@
       </ul>
     </div>
   </nav>
+  
+  <div id="textBox">
+    About The Project <br />
+
+    The purpose of Traffic Flag is to improve efficiency of police presence in Baltimore. Through clean and organized view of previous citation data, officers can have a good understanding of hot spots around the city and focus on such areas with future patrols. With data presented in a visually easing manner, it enables a much easier experience for officials to analyze and conclude patrol routes and prevention plans.<br />
+    <br />
+    About Us <br />
+
+	A team comprised of juniors studying at Lehigh University. We hail from all different fields of study. From all sorts of computer science and engineering, to industrial systems and even business. Our diverse expertise allow us to be flexible and approach situations from a variety of angles. We believe our solutions are thorough and practical, containing value past just a technological application. <br />
+  </div>
+
     
   </body>
 </html>

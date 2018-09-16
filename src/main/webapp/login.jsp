@@ -35,7 +35,7 @@
           <a class="nav-link" href="/main">TrafficFlag <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-about">
-          <a class="nav-link" href="/about">About Us</a>
+          <a class="nav-link" href="/about">About</a>
         </li>
         <% if(request.getSession().getAttribute("user") == null){ %>
         <li class="nav-about">

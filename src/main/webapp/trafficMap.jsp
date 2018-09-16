@@ -1,7 +1,5 @@
 <script>
 
-console.log(${hotspots});
-
 var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {

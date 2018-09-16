@@ -6,9 +6,11 @@
     <title>Traffic Flagger</title>
     <link rel="stylesheet" href="main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    
+    <script>console.log('THIS MAIN SCRIPT IS BEING RAN')</script>
     <jsp:include page="trafficMap.jsp"/>
     
-    <script>console.log(${hotspots});</script>
+    
    
 
     <meta charset="utf-8">

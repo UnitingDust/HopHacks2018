@@ -38,6 +38,7 @@
         font-family: "Trebuchet MS", Helvetica, sans-serif;
         margin-top: -20px;
         height: 640px;
+        width: 200px;
         border-style: solid;
         border-style: black;
         float: right;

@@ -107,7 +107,7 @@ public class MainServlet extends HttpServlet {
   
   public static void parseJSONFile() throws FileNotFoundException, IOException, ParseException {
 	  JSONParser parser = new JSONParser(); 
-	  Object json = parser.parse(new FileReader("parking-citation.json"));
+	  Object json = parser.parse(new FileReader("/home/kevan/Workspace/HopHacks2018/src/main/java/myapp/parking-citation.json"));
 	  
 	  JSONObject result = (JSONObject)json;
 	  JSONArray array = (JSONArray) result.get("results");

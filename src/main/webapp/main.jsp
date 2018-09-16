@@ -34,6 +34,7 @@
       #sidebar {
         float: right;
         margin-right: 30px;
+        width: 22%;
       }
       #points {
         font-family: "Trebuchet MS", Helvetica, sans-serif;

@@ -62,7 +62,7 @@ function drawPoints(hotspots) {
 			});
 
 			marker.addListener('click', function() {
-				displayPoints([this.obj]);
+				displayPoints([this.obj], "Point");
 			});
 
 			markers.push(marker);
@@ -77,13 +77,20 @@ function drawAreas(hotspots) {
 		var marker = new google.maps.Marker({
 			position: latLng,
 			map: map,
-			icon: getCircle(1),
 			incidents: hotspots[i].incidents,
-			numIncidents: hotspots[i].numofIncidents
+			numIncidents: hotspots[i].numofIncidents,
+			icon: {
+				path: google.maps.SymbolPath.CIRCLE,
+				fillColor: 'red',
+				fillOpacity: 0.2,
+				scale: 20,
+				strokeColor: 'white',
+				strokeWeight: .5
+			}
 		});
 
 		marker.addListener('click', function() {
-			displayPoints(this.incidents);
+			displayPoints(this.incidents, "Area");
 		});
 
 		markers.push(marker);
@@ -91,14 +98,15 @@ function drawAreas(hotspots) {
 }
 
 // k. change implementation to accept area object instead
-function displayPoints(points) {
+function displayPoints(points, point_type) {
 	$('#points').html(""); // k. clears the html in #points
+	var point_type = point_type === "Point" ? "point_icon" : "area_icon";
 	for (var i = 0; i < points.length; i++) {
-		$('#points').append('<span>' + 
-			'<p>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
-			'<p>' + points[i].address + '</p>' +
-			'<p>' + points[i].notes + '</p>' +
-			'<p>' + points[i].date + '</p>' +
+		$('#points').append('<span class="point_container"><span class=' + point_type + '></span>' + 
+			'<span><p class="p_info"><b>Coordinates</b>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
+			'<p class="p_info"><b>Address</b>' + points[i].address + '</p>' +
+			'<p class="p_info"><b>Notes</b>' + points[i].notes + '</p>' +
+			'<p class="p_info"><b>Date</b>' + points[i].date + '</p></span>' +
 			'</span>');
 	}
 }

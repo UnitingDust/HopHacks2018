@@ -9,8 +9,6 @@
 
     <jsp:include page="trafficMap.jsp"/>
 
-
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,10 +43,11 @@
         width: 100%;
         height: 91%;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        background-color: lightgray;
       }
       #points {
         font-family: "Trebuchet MS", Helvetica, sans-serif;
-        overflow-y:hidden;
+        overflow-y:scroll;
         box-sizing: border-box;
       }
 
@@ -71,10 +70,9 @@
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        /*background-color: #656363;*/
+        background-color: #656363;
         height: 100%;
-        overflow-y:hidden;
-        /* overflow: hidden; */
+        overflow: hidden;
       }
     </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -84,7 +82,22 @@
 
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top shadow-sm rounded" style="background-color: #E05B22;">TrafficFlag</nav>
+  <nav class="navbar navbar-expand-sm navbar-light fixed-top shadow-sm" style="background-color: #E05B22;">TF
+    <%-- <a class="navbar-brand" href="#">TrafficFlag</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> --%>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">TrafficFlag <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-about">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
     <div class="bottom-section">
       <div class="left-column">
         <div id="filters">
@@ -124,8 +137,5 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6FmCtk90VMm4FhOXopMObmK9ZeTSfzHI&callback=initMap">
     </script>
-
-
-
   </body>
 </html>

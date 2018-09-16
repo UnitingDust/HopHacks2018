@@ -73,11 +73,24 @@
       #date_filter {
         display: flex;
       }
+      
+      #error_label {
+    	padding: 10px;
+      }
+      
       /* Optional: Makes the sample page fill the window. */
       html, body {
         background-color: #656363;
         height: 100%;
         overflow: hidden;
+      }
+      
+      #error_container {
+      	width: 100%;
+      	height:100%;
+      	display:flex;
+      	justify-content: center;
+      	align-items: center;
       }
     </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -112,8 +125,10 @@
 
     </div>
     
-    <% if(request.getSession().getAttribute("user") != null){ %>
   </nav>
+  
+      <% if(request.getSession().getAttribute("user") != null){ %>
+  
     <div class="bottom-section">
       <div class="left-column">
         <div id="filters">
@@ -156,7 +171,9 @@
     </script>
     
 	<% } else { %>
-	  <h2 style="color:red">You are not logged in</h2>
+	<div id="error_container">
+	  <h2 id="error_label" style="color:red">Please Log In</h2>
+	</div>
 	<% } %>
 	
   </body>

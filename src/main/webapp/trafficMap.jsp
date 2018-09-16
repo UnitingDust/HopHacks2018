@@ -1,6 +1,7 @@
 <script>
 
-console.log(${hotspots})
+console.log(${hotspots});
+
 var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -8,7 +9,7 @@ function initMap() {
 	  center: new google.maps.LatLng(39.319,-76.607),
 	  mapTypeId: 'terrain'
 	});
-
+	
 	drawPoints(${hotspots});
 	drawAreas(${hotspots});
 	// displayPoints(${hotspots});
@@ -38,11 +39,12 @@ function loadJSON(callback) {
 function drawPoints(hotspots) {
 	for (var i = 0; i < hotspots.length; i++) {
 		var hotspot = hotspots[i];
-		for (var j = 0; j < hotspots.incidents.length; j++) {
-			var incidents = hotspot.incidents[0];
+		for (var j = 0; j < hotspot.incidents.length; j++) {
+			var incidents = hotspot.incidents[j];
+			console.log(incidents);
 			// console.log(jsn.results[i].geometry.coordinates);
 			var coords = incidents.coordinate;
-			var latLng = new google.maps.LatLng(coords.x,coords.y);
+			var latLng = new google.maps.LatLng(coords.y,coords.x);
 			var marker = new google.maps.Marker({
 				position: latLng,
 				map: map,
@@ -59,11 +61,11 @@ function drawPoints(hotspots) {
 function drawAreas(hotspots) {
 	for (var i = 0; i < hotspots.length; i++) {
 		var loc = hotspots[i].location
-		var latLng = new google.maps.LatLng(loc.x, loc.y);
+		var latLng = new google.maps.LatLng(loc.y, loc.x);
 		var marker = new google.maps.Marker({
 			position: latLng,
 			map: map,
-			icon, getCircle(1),
+			icon: getCircle(1),
 			incidents: hotspots[i].incidents,
 			numIncidents: hotspots[i].numofIncidents
 		});
@@ -76,13 +78,13 @@ function drawAreas(hotspots) {
 
 // k. change implementation to accept area object instead
 function displayPoints(points) {
-	$('#points').html(); // k. clears the html in #points
-	for (var i = 0; i < points.results.length; i++) {
+	$('#points').html(""); // k. clears the html in #points
+	for (var i = 0; i < points.length; i++) {
 		$('#points').append('<span>' + 
 			'<p>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
-			'<p>' + points[i].data.address + '</p>' +
-			'<p>' + points[i].data.notes + '</p>' +
-			'<p>' + points[i].data.issuedAt + '</p>' +
+			'<p>' + points[i].address + '</p>' +
+			'<p>' + points[i].notes + '</p>' +
+			'<p>' + points[i].date + '</p>' +
 			'</span>');
 	}
 }

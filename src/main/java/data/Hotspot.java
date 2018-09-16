@@ -28,4 +28,8 @@ public class Hotspot {
 	public ArrayList<Incident> getIncidents() {
 		return this.incidents;
 	}
+	
+	public void setIncidents(ArrayList<Incident> incidents) {
+		this.incidents = incidents;
+	}
 }

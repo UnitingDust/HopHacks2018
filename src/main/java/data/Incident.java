@@ -18,6 +18,10 @@ public class Incident {
 	public Point getCoordinate() {
 		return this.coordinate;
 	}
+	
+	public String getNotes() {
+		return this.notes;
+	}
 
 }
 

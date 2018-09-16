@@ -58,14 +58,19 @@ public class MainServlet extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+	    
+	    originalHotspots = new ArrayList<Hotspot>();
+	    originalHotspots.addAll(hotspots);
 	}
 	
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 	  
+	  
 	  Gson gson = new Gson();
 	  String json = gson.toJson(hotspots);
+	  System.out.println(json);
 	  		
 	  request.setAttribute("hotspots", json);
 	  request.getRequestDispatcher("/main.jsp").forward(request, response);
@@ -73,12 +78,15 @@ public class MainServlet extends HttpServlet {
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	  
-	  
-	  //String filterKey = request.getParameter("value");
-	  
+	  	  
 	  System.out.println("Date: " + request.getParameter("value_date"));
 	  System.out.println("Notes: " + request.getParameter("value_notes"));
 	  
+	  hotspots = new ArrayList<Hotspot>();
+	  hotspots.addAll(originalHotspots);
+	  
+	  filterByDate(request.getParameter("value_date"));
+	  filterByNote(request.getParameter("value_notes"));
 	  
 	  response.sendRedirect("/main");
 	  
@@ -149,7 +157,6 @@ public class MainServlet extends HttpServlet {
 		  if (hotspot.getIncidents().size() >= 2) {
 			  hotspot.setNumOfIncidents();
 			  validHotspots.add(hotspot);
-			  //System.out.println("Hotspot had " + hotspot.getIncidents().size());
 		  }
 	  }
 	  
@@ -164,6 +171,33 @@ public class MainServlet extends HttpServlet {
 	  
 	  else
 		  return true;
+  }
+  
+  public static void filterByDate(String filterKey) {
+	  
+  }
+  
+  public static void filterByNote(String filterKey) {
+	  
+	  ArrayList<Hotspot> newHotspots = new ArrayList<Hotspot>();
+	  filterKey = filterKey.replace("_", " ");
+	  
+	  for (Hotspot hotspot : hotspots) {
+		  ArrayList<Incident> newIncidents = new ArrayList<Incident>();
+		  
+		  for (Incident incident : hotspot.getIncidents()) {
+			  if (incident.getNotes().equals(filterKey))
+				  newIncidents.add(incident);
+		  }
+		  
+		  // Only add the hotspot to the list if there is at least one incident in the hotspot
+		  if (!(newIncidents.size() == 0)) {
+			  hotspot.setIncidents(newIncidents);
+			  newHotspots.add(hotspot);
+		  }
+	  }
+	  
+	  hotspots = newHotspots;
   }
 
 }

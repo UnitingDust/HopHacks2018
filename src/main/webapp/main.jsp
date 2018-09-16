@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <jsp:include page="trafficMap.jsp"/>
+    
+    <script>console.log(${hotspots});</script>
    
 
     <meta charset="utf-8">

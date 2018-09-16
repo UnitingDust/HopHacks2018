@@ -34,6 +34,7 @@
       #sidebar {
         float: right;
         margin-right: 30px;
+        width: 22%;
       }
       #points {
         font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -101,7 +102,7 @@
       </div>
       <div id="date_filter">
         <select id="date_select" onchange="filterPointsByDate(event)">
-          <option value="all">All Data</option>
+          <option value="all">All Times</option>
           <option value="oneweek">Past Week</option>
           <option value="twoweeks">Past 2 Weeks</option>
           <option value="onemonth">Past Month</option>

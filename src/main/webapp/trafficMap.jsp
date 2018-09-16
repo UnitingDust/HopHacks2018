@@ -1,7 +1,8 @@
 <script>
 
 var map;
-var markers = [];
+var point_markers = [];
+var area_markers = [];
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 	  zoom: 12,
@@ -23,11 +24,16 @@ $(document).ready(function() {
 });
 
 function updateMap(hotspots) {
-	for (var i = 0; i < markers.length; i++) {
-		markers[i].setMap(null);
+	for (var i = 0; i < point_markers.length; i++) {
+		point_markers[i].setMap(null);
 	}
 
-	markers = [];
+	for (var i = 0; i < area_markers.length; i++) {
+		area_markers[i].setMap(null);
+	}
+
+	point_markers = [];
+	area_markers = [];
 	drawPoints(hotspots);
 	drawAreas(hotspots);
 
@@ -65,7 +71,7 @@ function drawPoints(hotspots) {
 				displayPoints([this.obj], "Point");
 			});
 
-			markers.push(marker);
+			point_markers.push(marker);
 		}
 	}
 }
@@ -93,7 +99,7 @@ function drawAreas(hotspots) {
 			displayPoints(this.incidents, "Area");
 		});
 
-		markers.push(marker);
+		area_markers.push(marker);
 	}
 }
 
@@ -102,13 +108,14 @@ function displayPoints(points, point_type) {
 	$('#points').html(""); // k. clears the html in #points
 	var point_type = "point_icon";
 	for (var i = 0; i < points.length; i++) {
+		console.log(points[i]);
 		$('#points').append('<span class="point_container"><span class=' + point_type + '></span>' + 
 			'<span><p class="p_info"><b>Coordinates</b>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
 			'<p class="p_info"><b>Address</b>' + points[i].address + '</p>' +
 			'<p class="p_info"><b>Notes</b>' + points[i].notes + '</p>' +
-			'<p class="p_info"><b>Manufacturer</b>' + points[i].manufacturer + '</p></span>' +
-			'<p class="p_info"><b>Plate</b>' + points[i].plate + '</p></span>' +
-			'<p class="p_info"><b>Date</b>' + points[i].cleanedDate + '</p></span>' +
+			'<p class="p_info"><b>Manufacturer</b>' + points[i].manufacturer + '</p>' +
+			'<p class="p_info"><b>Plate</b>' + points[i].plate + '</p>' +
+			'<p class="p_info"><b>Date</b>' + points[i].cleanDate + '</p></span>' +
 			'</span>');
 	}
 }
@@ -132,7 +139,7 @@ function displayFilters () {
 	}
 }
 
-function filterPointsByNotes(item) {
+function filterPointsByNotes() {
 	$('#points').html(""); // k. clear the displayed points
 	$.ajax({
 		  type: 'POST',
@@ -147,7 +154,7 @@ function filterPointsByNotes(item) {
 		 });
 }
 
-function filterPointsByDate (item) {
+function filterPointsByDate () {
 	$('#points').html(""); // k. clear the displayed points
 	$.post("/main", {
 		value_notes: $('#notes_select').val(),
@@ -155,6 +162,42 @@ function filterPointsByDate (item) {
 	}, function( data ) {
 		updateMap(JSON.parse(data));
 	});
+}
+
+function filterPointsByVisibility () {
+	var val = $('#visibility_select').val();
+	console.log(val);
+	if (val === "areas") {
+		// k. wipe point markers
+		for (var i = 0; i < point_markers.length; i++) {
+			point_markers[i].setMap(null);
+		}
+
+		// k. show area markers
+		for (var i = 0; i < area_markers.length; i++) {
+			area_markers[i].setMap(map);
+		}
+	} else if (val === "points") {
+		// k. wipe area markers
+		for (var i = 0; i < area_markers.length; i++) {
+			area_markers[i].setMap(null);
+		}
+
+		// k. show point markers
+		for (var i = 0; i < point_markers.length; i++) {
+			point_markers[i].setMap(map);
+		}
+	} else {
+		// k. show point markers
+		for (var i = 0; i < point_markers.length; i++) {
+			point_markers[i].setMap(map);
+		}
+
+		// k. show area markers
+		for (var i = 0; i < area_markers.length; i++) {
+			area_markers[i].setMap(map);
+		}
+	}
 }
 
 // HARDCODED VARIABLES

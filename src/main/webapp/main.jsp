@@ -59,6 +59,7 @@
       #filters {
         font-family: "Trebuchet MS", Helvetica, sans-serif;
         margin-left: 20px;
+        display: flex;
       }
 
       #notes_filter {
@@ -88,17 +89,24 @@
       <div class="left-column">
         <div id="filters">
           <div id="notes_filter">
-            <select id="notes_select" onchange="filterPointsByNotes(event)">
+            <select id="notes_select" onchange="filterPointsByNotes()">
             </select>
           </div>
           <div id="date_filter">
-            <select id="date_select" onchange="filterPointsByDate(event)">
+            <select id="date_select" onchange="filterPointsByDate()">
               <option value="all">All Data</option>
               <option value="oneweek">Past Week</option>
               <option value="twoweeks">Past 2 Weeks</option>
               <option value="onemonth">Past Month</option>
               <option value="threemonths">Past 3 Months</option>
               <option value="sixmonths">Past 6 Months</option>
+            </select>
+          </div>
+          <div id="visibility_filter">
+            <select id="visibility_select" onchange="filterPointsByVisibility()">
+              <option value="both">Both Points and Areas</option>
+              <option value="points">Points only</option>
+              <option value="areas">Areas only</option>
             </select>
           </div>
         </div>

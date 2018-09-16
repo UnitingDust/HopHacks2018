@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
-    <script>console.log('THIS MAIN SCRIPT IS BEING RAN')</script>
     <jsp:include page="trafficMap.jsp"/>
+    
+    
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,7 +80,7 @@
         </select>
       </div>
       <div id="date_filter">
-        <select onchange="filterPointsByDate(event)">
+        <select id="date_select" onchange="filterPointsByDate(event)">
           <option value="all">All Data</option>
           <option value="oneweek">Past Week</option>
           <option value="twoweeks">Past 2 Weeks</option>

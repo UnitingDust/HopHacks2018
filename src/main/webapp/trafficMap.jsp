@@ -1,7 +1,5 @@
 <script>
 
-${ shouldUpdate=="true" ? windows.onLoad = updateMap() };
-
 var map;
 var markers = [];
 function initMap() {
@@ -24,17 +22,15 @@ $(document).ready(function() {
 	displayFilters();
 });
 
-function updateMap() {
+function updateMap(hotspots) {
 	for (var i = 0; i < markers.length; i++) {
 		markers[i].setMap(null);
 	}
 
 	markers = [];
+	drawPoints(hotspots);
+	drawAreas(hotspots);
 
-	loadJSON(function(jsn) { 
-		drawPoints(${hotspots});
-		displayPoints(${hotspots});
-	});	
 }
 
 function loadJSON(callback) {
@@ -47,7 +43,7 @@ function loadJSON(callback) {
 	 	}
  	};
  	xobj.send(null); 
- 	console.log(xobj);
+ 	//console.log(xobj);
  }
 
 function drawPoints(hotspots) {
@@ -55,7 +51,7 @@ function drawPoints(hotspots) {
 		var hotspot = hotspots[i];
 		for (var j = 0; j < hotspot.incidents.length; j++) {
 			var incidents = hotspot.incidents[j];
-			console.log(incidents);
+			//console.log(incidents);
 			// console.log(jsn.results[i].geometry.coordinates);
 			var coords = incidents.coordinate;
 			var latLng = new google.maps.LatLng(coords.y,coords.x);
@@ -69,7 +65,7 @@ function drawPoints(hotspots) {
 				displayPoints([this.obj]);
 			});
 
-			markers.append(marker);
+			markers.push(marker);
 		}
 	}
 }
@@ -90,7 +86,7 @@ function drawAreas(hotspots) {
 			displayPoints(this.incidents);
 		});
 
-		markers.append(marker);
+		markers.push(marker);
 	}
 }
 
@@ -127,20 +123,26 @@ function displayFilters () {
 }
 
 function filterPointsByNotes(item) {
-	$.post("/main", {
-		value_notes: $('#notes_select').val(),
-		value_date: $('#date_select').val()
-	}, function() {
-		alert($(item.target).val());
-	});
+	$.ajax({
+		  type: 'POST',
+		  url: "/main",
+		  data: {
+			  value_notes: $('#notes_select').val(),
+				value_date: $('#date_select').val()
+		  },
+		  success: function( data ) {
+			console.log(data);
+		  	updateMap(JSON.parse(data));
+		  }
+		 });
 }
 
 function filterPointsByDate (item) {
 	$.post("/main", {
 		value_notes: $('#notes_select').val(),
 		value_date: $('#date_select').val()
-	}, function() {
-		alert($(item.target).val());
+	}, function( data ) {
+		updateMap(JSON.parse(data));
 	});
 }
 

@@ -70,8 +70,7 @@ public class MainServlet extends HttpServlet {
 	  
 	  Gson gson = new Gson();
 	  String json = gson.toJson(hotspots);
-	  System.out.println(json);
-	  		
+	 
 	  request.setAttribute("hotspots", json);
 	  request.getRequestDispatcher("/main.jsp").forward(request, response);
   }
@@ -88,8 +87,10 @@ public class MainServlet extends HttpServlet {
 	  filterByDate(request.getParameter("value_date"));
 	  filterByNote(request.getParameter("value_notes"));
 	  
-	  response.sendRedirect("/main");
-	  
+	  Gson gson = new Gson();
+	  String json = gson.toJson(hotspots);
+      
+	  response.getWriter().write(json);
 	  
   }
   
@@ -178,24 +179,32 @@ public class MainServlet extends HttpServlet {
   }
   
   public static void filterByNote(String filterKey) {
-	  
-	  ArrayList<Hotspot> newHotspots = new ArrayList<Hotspot>();
 	  filterKey = filterKey.replace("_", " ");
-	  
-	  for (Hotspot hotspot : hotspots) {
-		  ArrayList<Incident> newIncidents = new ArrayList<Incident>();
+	  ArrayList<Hotspot> newHotspots = new ArrayList<Hotspot>();
+
+	  // Return all of the violations
+	  if (filterKey.equals("All Violations")) {
+		  newHotspots.addAll(originalHotspots);
+	  }
 		  
-		  for (Incident incident : hotspot.getIncidents()) {
-			  if (incident.getNotes().equals(filterKey))
-				  newIncidents.add(incident);
-		  }
-		  
-		  // Only add the hotspot to the list if there is at least one incident in the hotspot
-		  if (!(newIncidents.size() == 0)) {
-			  hotspot.setIncidents(newIncidents);
-			  newHotspots.add(hotspot);
+	  else {
+		  for (Hotspot hotspot : hotspots) {
+			  ArrayList<Incident> newIncidents = new ArrayList<Incident>();
+			  
+			  for (Incident incident : hotspot.getIncidents()) {
+				  if (incident.getNotes().equals(filterKey))
+					  newIncidents.add(incident);
+			  }
+			  
+			  // Only add the hotspot to the list if there is enough incidents 
+			  if (newIncidents.size() >= 2) {
+				  hotspot.setIncidents(newIncidents);
+				  hotspot.setNumOfIncidents();
+				  newHotspots.add(hotspot);
+			  }
 		  }
 	  }
+	  
 	  
 	  hotspots = newHotspots;
   }

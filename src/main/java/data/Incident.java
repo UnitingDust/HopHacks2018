@@ -4,6 +4,7 @@ public class Incident {
 	private String ID;
 	private String address;
 	private String date;
+	private String cleanDate;
 	private String notes;
 	private Point coordinate;
 	
@@ -13,6 +14,7 @@ public class Incident {
 		this.date = date;
 		this.notes = notes;
 		this.coordinate = coordinate;
+		this.cleanDate = date.substring(0, 10);
 	}
 	
 	public Point getCoordinate() {
@@ -21,6 +23,10 @@ public class Incident {
 	
 	public String getNotes() {
 		return this.notes;
+	}
+	
+	public String getDate() {
+		return this.date;
 	}
 
 }

@@ -19,6 +19,9 @@ package myapp;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +73,8 @@ public class MainServlet extends HttpServlet {
 	  
 	  Gson gson = new Gson();
 	  String json = gson.toJson(hotspots);
+	  
+	  System.out.println(json);
 	 
 	  request.setAttribute("hotspots", json);
 	  request.getRequestDispatcher("/main.jsp").forward(request, response);
@@ -175,7 +180,86 @@ public class MainServlet extends HttpServlet {
   }
   
   public static void filterByDate(String filterKey) {
+	  ArrayList<Hotspot> newHotspots = new ArrayList<Hotspot>();
+
+	  if (filterKey.equals("all")) {
+		  newHotspots.addAll(originalHotspots);
+	  }
 	  
+	  else {
+		  DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+		  
+		  for (Hotspot hotspot: hotspots) {
+			  ArrayList<Incident> newIncidents = new ArrayList<Incident>();
+
+			  for (Incident incident : hotspot.getIncidents()) {
+				  
+				  String date = incident.getDate().substring(0, 10);
+				  
+				  LocalDate localDate = LocalDate.parse(date, formatter);
+				  LocalDate nowDate = LocalDate.now();
+				  
+				  LocalDate compareDate;
+
+				  
+				  switch (filterKey) {
+				  case "oneweek":
+					   compareDate = nowDate.minusWeeks(1);
+					   
+					   System.out.println(compareDate.toString());
+					  
+					  if (localDate.isAfter(compareDate))
+						  newIncidents.add(incident);
+					  
+					  break;
+					  
+				  case "twoweeks":
+					  compareDate = nowDate.minusWeeks(2);
+					  
+					  if (localDate.isAfter(compareDate))
+						  newIncidents.add(incident);
+					  
+					  break;
+					  
+					  
+				  case "onemonth":
+					  compareDate = nowDate.minusMonths(1);
+					  
+					  if (localDate.isAfter(compareDate))
+						  newIncidents.add(incident);
+					  
+					  break;
+					  
+					  
+				  case "threemonths":
+					  compareDate = nowDate.minusMonths(3);
+					  
+					  if (localDate.isAfter(compareDate))
+						  newIncidents.add(incident);
+					  
+					  break;
+					  
+				  case "sixmonths":
+					  compareDate = nowDate.minusMonths(6);
+					  					  
+					  if (localDate.isAfter(compareDate))
+						  newIncidents.add(incident);
+					  
+					  break;
+				
+				  }
+			  }
+				  
+			// Only add the hotspot to the list if there is enough incidents
+			if (newIncidents.size() >= 2) {
+				hotspot.setIncidents(newIncidents);
+				hotspot.setNumOfIncidents();
+				newHotspots.add(hotspot);
+			}
+		  }
+	  }
+	  
+	  hotspots = newHotspots;
   }
   
   public static void filterByNote(String filterKey) {
@@ -184,7 +268,7 @@ public class MainServlet extends HttpServlet {
 
 	  // Return all of the violations
 	  if (filterKey.equals("All Violations")) {
-		  newHotspots.addAll(originalHotspots);
+		  return;
 	  }
 		  
 	  else {

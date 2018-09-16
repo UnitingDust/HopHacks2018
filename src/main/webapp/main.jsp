@@ -6,10 +6,10 @@
     <title>Traffic Flagger</title>
     <link rel="stylesheet" href="main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    
+
     <jsp:include page="trafficMap.jsp"/>
-    
-    
+
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,7 +42,7 @@
         width: 350px;
         float: right;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        overflow-y:hidden;
+        overflow-y:auto;
         background-color: lightgray;
         box-sizing: border-box;
       }
@@ -50,7 +50,7 @@
       #filters {
         font-family: "Trebuchet MS", Helvetica, sans-serif;
         margin-left: 20px;
-        margin-top: 60px;
+        margin-top: 80px;
       }
 
       #notes_filter {
@@ -75,7 +75,25 @@
 
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top shadow-sm rounded" style="background-color: #E05B22;">TrafficFlag</nav>
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top shadow-sm" style="background-color: #E05B22;">TF
+      <%-- <a class="navbar-brand" href="#">TrafficFlag</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> --%>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">TrafficFlag<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-features">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-about">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <div id="filters">
       <div id="notes_filter">
         <select id="notes_select" onchange="filterPointsByNotes(event)">

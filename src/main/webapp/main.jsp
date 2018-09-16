@@ -28,26 +28,27 @@
         border-style: solid;
         border-color: white;
         float: left;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
       }
 
       #sidebar {
         float: right;
-        margin-right: 20px;
+        margin-right: 30px;
       }
       #points {
         font-family: "Trebuchet MS", Helvetica, sans-serif;
         margin-top: -20px;
         height: 640px;
-        width: 200px;
-        border-style: solid;
-        border-style: black;
+        width: 350px;
         float: right;
-        overflow-y:scroll;
-        background-color: lightgreen;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        overflow-y:hidden;
+        background-color: lightgray;
         box-sizing: border-box;
       }
 
       #filters {
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
         margin-left: 20px;
         margin-top: 60px;
       }
@@ -61,8 +62,9 @@
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        background-color: #ADD8E6;
+        background-color: #656363;
         height: 100%;
+        overflow-y:hidden;
         /* overflow: hidden; */
       }
     </style>
@@ -73,7 +75,7 @@
 
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-primary fixed-top">TrafficFlag</nav>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top shadow-sm rounded" style="background-color: #E05B22;">TrafficFlag</nav>
     <div id="filters">
       <div id="notes_filter">
         <select id="notes_select" onchange="filterPointsByNotes(event)">

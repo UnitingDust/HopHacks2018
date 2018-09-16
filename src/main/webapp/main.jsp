@@ -89,7 +89,7 @@
   <body>
 
   
-  <% if(request.getSession().getAttribute("user") != null){ %>
+  
   <nav class="navbar navbar-expand-sm navbar-light fixed-top shadow-sm" style="background-color: #E05B22;">TF
     <%-- <a class="navbar-brand" href="#">TrafficFlag</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,9 +103,16 @@
         <li class="nav-about">
           <a class="nav-link" href="/about">About Us</a>
         </li>
+        <% if(request.getSession().getAttribute("user") == null){ %>
+        <li class="nav-about">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <% } %>
       </ul>
 
     </div>
+    
+    <% if(request.getSession().getAttribute("user") != null){ %>
   </nav>
     <div class="bottom-section">
       <div class="left-column">

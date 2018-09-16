@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
-    <jsp:include page="trafficMap.jsp"/>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +12,7 @@
     <style>
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        /*background-color: #656363;*/
+        background-color: #656363;
         height: 100%;
         overflow: hidden;
       }
@@ -39,11 +37,14 @@
         <li class="nav-about">
           <a class="nav-link" href="/about">About Us</a>
         </li>
+        <% if(request.getSession().getAttribute("user") == null){ %>
+        <li class="nav-about">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <% } %>
       </ul>
     </div>
   </nav>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6FmCtk90VMm4FhOXopMObmK9ZeTSfzHI&callback=initMap">
-    </script>
+    
   </body>
 </html>

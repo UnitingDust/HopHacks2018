@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
+	  
     request.getRequestDispatcher("/login.jsp").forward(request, response);
   }
 
@@ -52,9 +53,11 @@ public class LoginServlet extends HttpServlet {
  @Override
  public void doPost(HttpServletRequest request, HttpServletResponse response)
      throws IOException, ServletException {
+	 
    String username = request.getParameter("username");
    String password = request.getParameter("password");
-
+   
+   
    if (userStore.isUserRegistered(username)) {
      User user = userStore.getUser(username);
      
@@ -68,6 +71,7 @@ public class LoginServlet extends HttpServlet {
        request.getRequestDispatcher("/login.jsp").forward(request, response);
      }
    }
+   
    else {
      request.setAttribute("error", "That username was not found.");
      request.getRequestDispatcher("/login.jsp").forward(request, response);

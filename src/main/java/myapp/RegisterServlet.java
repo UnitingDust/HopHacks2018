@@ -50,7 +50,7 @@ void setUserStore(UserStore userStore) {
  @Override
  public void doPost(HttpServletRequest request, HttpServletResponse response)
      throws IOException, ServletException {
-
+	 
    //stores the user name and passwords as strings
    String username = request.getParameter("username");
    String password = request.getParameter("password");
@@ -58,6 +58,7 @@ void setUserStore(UserStore userStore) {
    if (userStore.isUserRegistered(username)) {
      request.setAttribute("error", "That username is already taken.");
      request.getRequestDispatcher("/register.jsp").forward(request, response);
+     
      return;
    }
    

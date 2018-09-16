@@ -3,11 +3,13 @@
 <!doctype html>
 <html lang=en>
   <head>
-    <title>Traffic Flagger</title>
+    <title>Traffic Flag</title>
     <link rel="stylesheet" href="main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
-    <jsp:include page="trafficMap.jsp"/>
+    <% if(request.getSession().getAttribute("user") != null){ %>
+    	<jsp:include page="trafficMap.jsp"/>
+    <% } %>
     
     
 
@@ -76,6 +78,8 @@
 
 
   <body>
+  
+  	<% if(request.getSession().getAttribute("user") != null){ %>
     <nav class="navbar navbar-expand-md navbar-light fixed-top shadow-sm rounded" style="background-color: #E05B22;">TrafficFlag</nav>
     <div id="filters">
       <div id="notes_filter">
@@ -105,6 +109,9 @@
     </script>
 
 
-
+	<% } else { %>
+	  <h2 style="color:red">You are not logged in</h2>
+	<% } %>
+	
   </body>
 </html>

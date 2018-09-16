@@ -45,9 +45,12 @@ public class MainServlet extends HttpServlet {
 	private static double radiusThreshold = 0.0144;
 	private static ArrayList<Hotspot> originalHotspots;
 	
+	private UserStore userStore;
+	
 	@Override
 	public void init() throws ServletException {
 	    super.init();
+	    setUserStore(UserStore.getInstance());
 	    
 	    incidents = new ArrayList<Incident>();
 		hotspots = new ArrayList<Hotspot>();
@@ -64,6 +67,10 @@ public class MainServlet extends HttpServlet {
 	    
 	    originalHotspots = new ArrayList<Hotspot>();
 	    originalHotspots.addAll(hotspots);
+	}
+	
+	void setUserStore(UserStore userStore) {
+		this.userStore = userStore;
 	}
 	
   @Override
@@ -202,9 +209,7 @@ public class MainServlet extends HttpServlet {
 				  switch (filterKey) {
 				  case "oneweek":
 					   compareDate = nowDate.minusWeeks(1);
-					   
-					   System.out.println(compareDate.toString());
-					  
+					   					  
 					  if (localDate.isAfter(compareDate))
 						  newIncidents.add(incident);
 					  

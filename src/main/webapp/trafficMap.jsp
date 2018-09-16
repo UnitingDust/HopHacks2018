@@ -150,6 +150,7 @@ function displayFilters () {
 }
 
 function filterPointsByNotes() {
+	$('#header h2').text('Incidents');
 	$('#points').html("<p class='no-points'>There are no points selected<p>"); // k. clear the displayed points
 	$.ajax({
 		  type: 'POST',
@@ -165,6 +166,7 @@ function filterPointsByNotes() {
 }
 
 function filterPointsByDate () {
+	$('#header h2').text('Incidents');
 	$('#points').html("<p class='no-points'>There are no points selected<p>");  // k. clear the displayed points
 	$.post("/main", {
 		value_notes: $('#notes_select').val(),
@@ -175,6 +177,8 @@ function filterPointsByDate () {
 }
 
 function filterPointsByVisibility () {
+	$('#header h2').text('Incidents');
+	$('#points').html("<p class='no-points'>There are no points selected<p>");
 	var val = $('#visibility_select').val();
 	console.log(val);
 	if (val === "areas") {

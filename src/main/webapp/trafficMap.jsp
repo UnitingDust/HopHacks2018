@@ -106,7 +106,9 @@ function displayPoints(points, point_type) {
 			'<span><p class="p_info"><b>Coordinates</b>' + points[i].coordinate.x+', '+points[i].coordinate.y+'</p>' +
 			'<p class="p_info"><b>Address</b>' + points[i].address + '</p>' +
 			'<p class="p_info"><b>Notes</b>' + points[i].notes + '</p>' +
-			'<p class="p_info"><b>Date</b>' + points[i].date + '</p></span>' +
+			'<p class="p_info"><b>Manufacturer</b>' + points[i].manufacturer + '</p></span>' +
+			'<p class="p_info"><b>Plate</b>' + points[i].plate + '</p></span>' +
+			'<p class="p_info"><b>Date</b>' + points[i].cleanedDate + '</p></span>' +
 			'</span>');
 	}
 }
@@ -131,6 +133,7 @@ function displayFilters () {
 }
 
 function filterPointsByNotes(item) {
+	$('#points').html(""); // k. clear the displayed points
 	$.ajax({
 		  type: 'POST',
 		  url: "/main",
@@ -145,6 +148,7 @@ function filterPointsByNotes(item) {
 }
 
 function filterPointsByDate (item) {
+	$('#points').html(""); // k. clear the displayed points
 	$.post("/main", {
 		value_notes: $('#notes_select').val(),
 		value_date: $('#date_select').val()

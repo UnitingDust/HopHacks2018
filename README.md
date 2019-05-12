@@ -12,14 +12,13 @@ We used the Google Maps API to plot citations and display hotspots. The whole pr
 
 ### Dropdown Menus
 
-##### Type of Violation
-We performed some preliminary analysis on the dataset to extract unique types of violations and used this list to populate the dropdown. This allows the user to focus on particular types of violations depending on what problem they're trying to solve. 
+**Type of Violation** We performed some preliminary analysis on the dataset to extract unique types of violations and used this list to populate the dropdown. This allows the user to focus on particular types of violations depending on what problem they're trying to solve. 
 
 ##### Recency
 Users can choose the recency of the data they want to have displayed. The data set given by the organisers spanned more than a decade, so if the user wanted a more recent time range such as the past 6 month, the past month etc. they are able to filter the relevant data.
 
 
-##### Type of point to be shown
+##### Type of Marker
 Users have the option to see points only, areas only or both. 
 
 ### Types of Points

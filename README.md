@@ -1,5 +1,7 @@
 # Traffic Flagger Project for HopHacks 2018
 
+We won the Best Civic Hack and Best Use of Google APIs categories at [HopHacks Fall 2018](https://www.hackerearth.com/challenges/hackathon/hophacks-fall-2018/)! A big thank you to the organizers and sponsors of this hackathon:smile:
+
 ## Why?
 The purpose of Traffic Flag is to improve efficiency of police presence in Baltimore. Through clean and organized view of previous citation data, officers can have a good understanding of hot spots around the city and focus on such areas with future patrols. With data presented in a visually easing manner, it enables a much easier experience for officials to analyze and conclude patrol routes and prevention plans.
 
